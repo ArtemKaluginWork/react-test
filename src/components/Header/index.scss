@@ -1,0 +1,16 @@
+.root {
+  background: #3C5A99;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.link {
+  color: white;
+  text-decoration: none;
+  width: 120px;
+}
+.link-active {
+  font-weight: bold;
+}
