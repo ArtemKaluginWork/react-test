@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import uuid from 'uuid';
+
+export const Hobby = memo(({ hobby, deleteHobby }) => (
+  <div key={hobby.id}>
+    <p>{hobby.text}</p>
+    <button type="button" onClick={deleteHobby(hobby.id)}>X</button>
+  </div>
+), (p, n) => p.deleteHobby === n.deleteHobby);
+
 
 const UserHobby = () => {
   const [hobbyText, updateHobbyText] = useState('');
   const [hobbies, updateHobbies] = useState([]);
-  const deleteHobby = id => () => {
-    updateHobbies(hobbies.filter(hobby => hobby.id !== id));
-  };
+
+  const deleteHobby = useCallback(id => () => {
+    updateHobbies(hobbies => hobbies.filter(({ id: hId }) => hId !== id));
+  }, []);
+
   const submitForm = (e) => {
     e.preventDefault();
     if (!hobbyText.trim()) return;
@@ -16,11 +26,10 @@ const UserHobby = () => {
   const handleChange = ({ target: { value } }) => {
     updateHobbyText(value);
   };
+
+
   const renderHobby = hobby => (
-    <div key={hobby.id}>
-      <p>{hobby.text}</p>
-      <button type="button" onClick={deleteHobby(hobby.id)}>X</button>
-    </div>
+    <Hobby key={hobby.id} hobby={hobby} deleteHobby={deleteHobby} />
   );
   return (
     <div>

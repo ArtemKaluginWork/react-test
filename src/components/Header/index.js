@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import './index.scss';
+import styles from './index.module.scss';
 
 const Header = () => (
-  <div className="root">
-    <NavLink exact activeClassName="link-active" className="link" to="/">Home</NavLink>
-    <NavLink exact activeClassName="link-active" className="link" to="/about">About</NavLink>
-    <NavLink exact activeClassName="link-active" className="link" to="/user-page">User Page</NavLink>
-    <NavLink exact activeClassName="link-active" className="link" to="/testing">Testing ground</NavLink>
+  <div className={styles.root}>
+    {console.log('header')}
+    <NavLink exact activeClassName={styles['link-active']} className={styles.link} to="/">Home</NavLink>
+    <NavLink exact activeClassName={styles['link-active']} className={styles.link} to="/about">About</NavLink>
+    <NavLink exact activeClassName={styles['link-active']} className={styles.link} to="/user-page">User Page</NavLink>
+    <NavLink exact activeClassName={styles['link-active']} className={styles.link} to="/testing">Testing ground</NavLink>
   </div>
 );
 
-export default Header;
+export default memo(Header);
